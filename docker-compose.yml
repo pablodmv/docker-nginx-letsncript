@@ -49,3 +49,8 @@ services:
       - VIRTUAL_HOST=neurona.ml,app.neurona.ml
       - LETSENCRYPT_HOST=neurona.ml,app.neurona.ml
       - LETSENCRYPT_EMAIL=hola@quimerico.uy
+
+volumes:
+  certs: .
+  html: .
+  vhostd: .
