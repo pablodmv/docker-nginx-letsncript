@@ -9,9 +9,9 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - certs:/etc/nginx/certs:ro
-      - vhostd:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
+      - ./certs:/etc/nginx/certs:ro
+      - ./vhostd:/etc/nginx/vhost.d
+      - ./html:/usr/share/nginx/html
     labels:
       - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
 
@@ -21,12 +21,12 @@ services:
     environment:
       - NGINX_PROXY_CONTAINER=nginx-proxy
     volumes:
-      - certs:/etc/nginx/certs:rw
-      - vhostd:/etc/nginx/vhost.d
-      - html:/usr/share/nginx/html
+      - ./certs:/etc/nginx/certs:rw
+      - ./vhostd:/etc/nginx/vhost.d
+      - ./html:/usr/share/nginx/html
       - /var/run/docker.sock:/var/run/docker.sock:ro
 
-  www_meet_quimerico:
+  www1_quimerico:
     image: nginx
     restart: always
     expose:
@@ -34,11 +34,11 @@ services:
     volumes:
       - ./html:/usr/share/nginx/html:ro
     environment:
-      - VIRTUAL_HOST=quimerico.uy,meet.quimerico.uy
-      - LETSENCRYPT_HOST=quimerico.uy,meet.quimerico.uy
+      - VIRTUAL_HOST=www1.quimerico.uy
+      - LETSENCRYPT_HOST=www1.quimerico.uy
       - LETSENCRYPT_EMAIL=hola@quimerico.uy
 
-  www_neurona_ml:
+  www2_quimerico:
     image: nginx
     restart: always
     expose:
@@ -46,11 +46,7 @@ services:
     volumes:
       - ./html2:/usr/share/nginx/html:ro
     environment:
-      - VIRTUAL_HOST=neurona.ml,app.neurona.ml
-      - LETSENCRYPT_HOST=neurona.ml,app.neurona.ml
+      - VIRTUAL_HOST=www2.quimerico.uy
+      - LETSENCRYPT_HOST=www2.quimerico.uy
       - LETSENCRYPT_EMAIL=hola@quimerico.uy
 
-volumes:
-  certs: .
-  html: .
-  vhostd: .
